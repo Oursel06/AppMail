@@ -1,16 +1,12 @@
 package com.example.demo;
 
-
-
 import javax.mail.Address;
 import javax.mail.Message;
 import javax.mail.MessagingException;
 import java.io.IOException;
 import java.util.Date;
 
-
 public class Email {
-
     private String body ;
     private String sender ;
     private String recipient ;

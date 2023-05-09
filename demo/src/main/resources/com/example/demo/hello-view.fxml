@@ -26,6 +26,11 @@
                         <MenuItem onAction="#afficheDialog" mnemonicParsing="false" text="A propos" />
                     </items>
                 </Menu>
+                <Menu mnemonicParsing="false" text="Nouveau mail">
+                    <items>
+                        <MenuItem onAction="#showModalMail" mnemonicParsing="false" text="Envoyer un mail" />
+                    </items>
+                </Menu>
             </menus>
         </MenuBar>
         <SplitPane dividerPositions="0.2836990595611285" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" prefHeight="368.0" prefWidth="640.0" VBox.vgrow="ALWAYS">

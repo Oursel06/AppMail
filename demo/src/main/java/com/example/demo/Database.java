@@ -14,24 +14,13 @@ public class Database {
     public static final String PASSWORD = "";
     public static final String DATABASE_URL = "jdbc:mysql://"+HOST+":"+PORT+"/"+DATABASE_NAME;
 
+    // Fonction permettant de se connecter à une base de données MYSQL
     public Connection dbConnection() throws SQLException {
         Connection conn = DriverManager.getConnection(DATABASE_URL, USER, PASSWORD);
         return conn;
     }
 
-    public void insertUser(String username, String email, String password) throws SQLException {
-        String hash = get_SHA_512_SecurePassword(password, "SalT_2_randomisE");
-        String query = "INSERT INTO users(username, email, hash) VALUES (?, ?, ?)";
-        PreparedStatement st = dbConnection().prepareStatement(query);
-        st.setString(1, username);
-        st.setString(2, email);
-        st.setString(3, hash);
-
-        int nb = st.executeUpdate();
-        System.out.println(nb + " ligne(s) inserée(s)");
-        st.close();
-    }
-
+    // Fonction qui insert un mail
     public void insertMail(String subject, String sender, String date, String body) throws SQLException {
         String query = "INSERT INTO mail(subject, sender, date, body) VALUES (?, ?, ?, ?)";
         PreparedStatement st = dbConnection().prepareStatement(query);
@@ -45,20 +34,7 @@ public class Database {
         st.close();
     }
 
-    public void updateUser(int id, String username, String email) throws SQLException {
-        Statement st = dbConnection().createStatement();
-        int nb = st.executeUpdate("UPDATE users SET username = '" + username + "', email = '" + email + "' WHERE id = " + id);
-        System.out.println(nb + " ligne(s) modifiée(s)");
-        st.close();
-    }
-
-    public void deleteUser(int id) throws SQLException {
-        Statement st = dbConnection().createStatement();
-        int nb = st.executeUpdate("DELETE FROM users WHERE id = " + id);
-        System.out.println(nb + " ligne(s) supprimée(s)");
-        st.close();
-    }
-
+    // Fonction qui récupère tous les mails de la base de données
     public List<String> displayMail() throws SQLException {
         Statement st = dbConnection().createStatement();
         ResultSet rs = st.executeQuery("SELECT * FROM mail");
@@ -77,6 +53,7 @@ public class Database {
         return dateEmail;
     }
 
+    // Fonction qui hash un mot de passe passé en paramètre
     public String get_SHA_512_SecurePassword(String passwordToHash, String salt){
         String generatedPassword = null;
         try {
