@@ -120,7 +120,7 @@ public class HelloController {
         TextArea messageArea = new TextArea();
         messageArea.setPromptText("Votre message...");
 
-        // Création du bouton zenvoyer qui vérifie si le champ destinataire n'est pas vide pour envoyer le mail
+        // Création du bouton envoyer qui vérifie si le champ destinataire n'est pas vide pour envoyer le mail
         Button sendButton = new Button("Envoyer");
         sendButton.setOnAction((ActionEvent e) -> {
             String object = objectField.getText();
@@ -145,12 +145,12 @@ public class HelloController {
         try {
             if(destinataire.length() > 0){
                 Multipart multipart = new MimeMultipart();
+                // si l'utilisateur choisi une image en PJ on l'ajoute
                 if (attachedFile != null) {
                     MimeBodyPart attachmentBodyPart = new MimeBodyPart();
                     attachmentBodyPart.attachFile(attachedFile);
                     multipart.addBodyPart(attachmentBodyPart);
                 }
-
                 EmailManager.sendEmail(session, destinataire,object, multipart, message);
                 System.out.println("Mail envoyé ! \n Détails : Destinataire => " + destinataire + " object => " + object + " message => " + message );
                 modal.close();
