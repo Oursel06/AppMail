@@ -150,8 +150,9 @@ public class HelloController {
                     MimeBodyPart attachmentBodyPart = new MimeBodyPart();
                     attachmentBodyPart.attachFile(attachedFile);
                     multipart.addBodyPart(attachmentBodyPart);
+                    EmailManager.sendEmail(session, destinataire,object, multipart, message);
                 }
-                EmailManager.sendEmail(session, destinataire,object, multipart, message);
+                EmailManager.sendEmailWithoutAttachment(session, destinataire,object, message);
                 System.out.println("Mail envoyé ! \n Détails : Destinataire => " + destinataire + " object => " + object + " message => " + message );
                 modal.close();
             }

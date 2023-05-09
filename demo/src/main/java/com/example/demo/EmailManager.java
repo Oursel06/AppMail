@@ -10,7 +10,23 @@ import java.util.List;
 import java.util.Properties;
 
 public class EmailManager {
-    // Fonction qui permet d'envoyer un mail
+    // Fonctions qui permettent d'envoyer un mail avec et sans PJ
+    public static void sendEmailWithoutAttachment(Session session, String destinataire, String sujet, String message) {
+        try {
+            MimeMessage msg = new MimeMessage(session);
+            // set message headers
+            msg.addHeader("Content-type", "text/HTML; charset=UTF-8");
+            msg.addHeader("format", "flowed");
+            msg.addHeader("Content-Transfer-Encoding", "8bit");
+            msg.setSubject(sujet, "UTF-8");
+            msg.setText(message, "UTF-8");
+            msg.setRecipients(Message.RecipientType.TO, InternetAddress.parse(destinataire, false));
+            Transport.send(msg);
+            System.out.println("sendEmail => OK !");
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
     public static void sendEmail(Session session, String destinataire, String sujet, Multipart multipart, String message) {
         try {
             MimeMessage msg = new MimeMessage(session);
